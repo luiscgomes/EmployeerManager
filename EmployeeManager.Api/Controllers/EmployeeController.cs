@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using EmployeeManager.Api.Contracts;
 using EmployeeManager.Domain.Entities;
-using EmployeeManager.Infrastructure.Repositories;
+using EmployeeManager.Infrastructure.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
