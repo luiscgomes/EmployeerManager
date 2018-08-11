@@ -1,4 +1,5 @@
 ﻿using EmployeeManager.Domain.Entities;
+using EmployeeManager.Infrastructure.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManager.Infrastructure.Data
@@ -17,6 +18,7 @@ namespace EmployeeManager.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
         }
     }
 }
