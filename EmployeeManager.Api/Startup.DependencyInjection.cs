@@ -1,4 +1,6 @@
 ﻿using EmployeeManager.Infrastructure.Data;
+using EmployeeManager.Infrastructure.Repositories;
+using EmployeeManager.Infrastructure.Repositories.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -29,7 +31,7 @@ namespace EmployeeManager.Api
                     options =>
                         options
                             .UseSqlServer(
-                                Configuration.GetValue<string>("Split"),
+                                Configuration.GetValue<string>("EmployeeManagerDb"),
                                 splitOptions => splitOptions.EnableRetryOnFailure())
                             .EnableSensitiveDataLogging());
 
@@ -45,6 +47,10 @@ namespace EmployeeManager.Api
             _container.CrossWire<ILoggerFactory>(app);
             _container.CrossWire<EmployeeManagerContext>(app);
             _container.CrossWire<IHostingEnvironment>(app);
+            _container.CrossWire<EmployeeManagerContext>(app);
+
+            _container.Register<IEmployeeReader, EmployeeReader>();
+            _container.Register<IEmployeeWriter, EmployeeWriter>();
         }
     }
 }
