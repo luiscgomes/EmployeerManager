@@ -33,9 +33,9 @@ namespace EmployeeManager.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(PaginationModel paginationModel)
+        public async Task<IActionResult> Get(PageModel pageModel)
         {
-            var employees = await EmployeeReader.Read(paginationModel.Page, paginationModel.PageSize);
+            var employees = await EmployeeReader.Read(pageModel.Page, pageModel.PageSize);
 
             var employeeModels = employees.MapTo<IReadOnlyCollection<EmployeeModel>>();
 

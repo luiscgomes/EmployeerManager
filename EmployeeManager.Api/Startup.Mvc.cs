@@ -1,4 +1,6 @@
 ﻿using EmployeeManager.Api.Attributes;
+using EmployeeManager.Api.Validations;
+using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -9,19 +11,22 @@ namespace EmployeeManager.Api
     {
         public void ConfigureMvc(IServiceCollection services)
         {
-            var mvcBuilder = services.AddMvc(options =>
+            services.AddMvc(options =>
             {
                 options.Filters.Add(new ModelValidationFilterAttribute());
                 options.AllowEmptyInputInBodyModelBinding = false;
-            });
-
-            mvcBuilder.AddJsonOptions(mvcJsonOptions =>
+            })
+            .AddJsonOptions(mvcJsonOptions =>
             {
                 var settings = mvcJsonOptions.SerializerSettings;
 
                 settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 settings.NullValueHandling = NullValueHandling.Ignore;
                 settings.Converters.Add(new StringEnumConverter());
+            })
+            .AddFluentValidation(fv =>
+            {
+                fv.RegisterValidatorsFromAssemblyContaining<EmployeeCreateModelValidator>();
             });
         }
     }

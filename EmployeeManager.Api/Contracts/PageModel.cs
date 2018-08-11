@@ -1,6 +1,6 @@
 ﻿namespace EmployeeManager.Api.Contracts
 {
-    public class PaginationModel
+    public class PageModel
     {
         public int Page { get; set; } = 1;
 
