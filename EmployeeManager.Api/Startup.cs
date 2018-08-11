@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using EmployeeManager.Api.Mappers;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +28,8 @@ namespace EmployeeManager.Api
             //app.UseMiddleware<LoggingMiddleware>();
 
             UseDependencyInjection(app);
+
+            AutoMapperConfiguration.Configure();
 
             app.UseMvc();
         }

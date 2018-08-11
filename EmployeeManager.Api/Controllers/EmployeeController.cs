@@ -1,5 +1,5 @@
-﻿using AutoMapper;
-using EmployeeManager.Api.Contracts;
+﻿using EmployeeManager.Api.Contracts;
+using EmployeeManager.Api.Mappers.Extensions;
 using EmployeeManager.Domain.Entities;
 using EmployeeManager.Infrastructure.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -26,11 +26,11 @@ namespace EmployeeManager.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] EmployeeCreateModel employeeCreateModel)
         {
-            var employee = Mapper.Map<Employee>(employeeCreateModel);
+            var employee = employeeCreateModel.MapTo<Employee>();
 
             await EmployeeWriter.Write(employee);
 
-            var employeeModel = Mapper.Map<EmployeeModel>(employee);
+            var employeeModel = employee.MapTo<EmployeeModel>();
 
             return Created(string.Empty, employeeModel);
         }

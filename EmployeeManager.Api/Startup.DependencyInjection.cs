@@ -47,7 +47,6 @@ namespace EmployeeManager.Api
             _container.CrossWire<ILoggerFactory>(app);
             _container.CrossWire<EmployeeManagerContext>(app);
             _container.CrossWire<IHostingEnvironment>(app);
-            _container.CrossWire<EmployeeManagerContext>(app);
 
             _container.Register<IEmployeeReader, EmployeeReader>();
             _container.Register<IEmployeeWriter, EmployeeWriter>();
