@@ -9,6 +9,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Context;
+using Serilog.Events;
+using Serilog.Filters;
 using SimpleInjector;
 using SimpleInjector.Integration.AspNetCore.Mvc;
 using SimpleInjector.Lifestyles;
@@ -32,7 +36,7 @@ namespace EmployeeManager.Api
                         options
                             .UseSqlServer(
                                 Configuration.GetValue<string>("EmployeeManagerDb"),
-                                splitOptions => splitOptions.EnableRetryOnFailure())
+                                dbOptions => dbOptions.EnableRetryOnFailure())
                             .EnableSensitiveDataLogging());
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -50,6 +54,31 @@ namespace EmployeeManager.Api
 
             _container.Register<IEmployeeReader, EmployeeReader>();
             _container.Register<IEmployeeWriter, EmployeeWriter>();
+
+            _container.Register(() =>
+            {
+                Log.Logger =
+                    new LoggerConfiguration()
+                        .Enrich.FromLogContext()
+                        .Enrich.WithProperty("Env", Configuration.GetValue<string>("Env"))
+                        .MinimumLevel.Verbose()
+                        .WriteTo.Console()
+                        .WriteTo.Logger(lc => lc
+                            .Filter
+                            .ByExcluding(Matching.FromSource(nameof(Microsoft)))
+                            .WriteTo.AzureDocumentDB(
+                                Configuration.GetValue<string>("LogUrl"),
+                                Configuration.GetValue<string>("LogToken"),
+                                Configuration.GetValue<string>("LogDb"),
+                                Configuration.GetValue<string>("LogCollection"),
+                                LogEventLevel.Information))
+                        .CreateLogger();
+
+                LogContext.PushProperty("Application", "EmployeeManager.Api");
+
+                return Log.Logger;
+            },
+            Lifestyle.Singleton);
         }
     }
 }
