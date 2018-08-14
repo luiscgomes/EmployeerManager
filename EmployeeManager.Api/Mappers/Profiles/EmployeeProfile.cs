@@ -15,7 +15,8 @@ namespace EmployeeManager.Api.Mappers.Profiles
                 .ForMember(d => d.CreatedAt, o => o.Ignore())
                 .ForMember(d => d.DeletedAt, o => o.Ignore());
 
-            CreateMap<Employee, EmployeeModel>();
+            CreateMap<Employee, EmployeeModel>()
+                .ForMember(d => d.Email, o => o.MapFrom(s => s.Email.Address));
         }
     }
 }
