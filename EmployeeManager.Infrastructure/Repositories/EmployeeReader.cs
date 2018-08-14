@@ -29,12 +29,18 @@ namespace EmployeeManager.Infrastructure.Repositories
             return employee;
         }
 
+        public async Task<bool> Any(string email)
+        {
+            return await Employees.AnyAsync(x => x.Email == email);
+        }
+
         public async Task<IReadOnlyCollection<Employee>> Read(int pageIndex, int pageSize)
         {
             var employees = await Employees
                 .AsNoTracking()
                 .Skip(GetPageSkip(pageIndex, pageSize))
                 .Take(pageSize)
+                .Where(x => x.DeletedAt == null)
                 .ToListAsync();
 
             return employees;

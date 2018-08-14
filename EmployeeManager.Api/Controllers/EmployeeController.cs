@@ -1,5 +1,6 @@
 ﻿using EmployeeManager.Api.Contracts;
 using EmployeeManager.Api.Mappers.Extensions;
+using EmployeeManager.Commons.Notifications;
 using EmployeeManager.Domain.Entities;
 using EmployeeManager.Infrastructure.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +16,14 @@ namespace EmployeeManager.Api.Controllers
 
         public IEmployeeReader EmployeeReader { get; }
 
+        public INotificationStore NotificationStore { get; }
+
         public EmployeeController(
             IEmployeeWriter employeeWriter,
-            IEmployeeReader employeeReader)
+            IEmployeeReader employeeReader,
+            INotificationStore notificationStore)
         {
+            NotificationStore = notificationStore ?? throw new ArgumentNullException(nameof(notificationStore));
             EmployeeReader = employeeReader ?? throw new ArgumentNullException(nameof(employeeReader));
             EmployeeWriter = employeeWriter ?? throw new ArgumentNullException(nameof(employeeWriter));
         }
@@ -29,6 +34,13 @@ namespace EmployeeManager.Api.Controllers
             var employee = employeeCreateModel.MapTo<Employee>();
 
             await EmployeeWriter.Write(employee);
+
+            if (NotificationStore.HasNotifications())
+            {
+                var notfications = new BadRequestModel(NotificationStore.Notifications);
+
+                return BadRequest(notfications);
+            }
 
             var employeeModel = employee.MapTo<EmployeeModel>();
 

@@ -22,8 +22,6 @@ namespace EmployeeManager.Infrastructure.Data.Configurations
                     .IsRequired()
                     .HasColumnName("Email");
             });
-
-            builder.HasQueryFilter(x => x.DeletedAt == null);
         }
     }
 }

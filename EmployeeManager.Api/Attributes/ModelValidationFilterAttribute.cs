@@ -1,4 +1,5 @@
 ﻿using EmployeeManager.Api.Contracts;
+using EmployeeManager.Commons.Notifications;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -18,14 +19,14 @@ namespace EmployeeManager.Api.Attributes
 
             var errors = CreateErrors(context.ModelState);
 
-            context.Result = new BadRequestObjectResult(new { Errors = errors });
+            context.Result = new BadRequestObjectResult(new BadRequestModel(errors));
         }
 
-        public static IEnumerable<BadRequestModel> CreateErrors(ModelStateDictionary modelState)
+        public static IEnumerable<Notification> CreateErrors(ModelStateDictionary modelState)
         {
             return from key in modelState.Keys
                    from error in modelState[key].Errors
-                   select new BadRequestModel(
+                   select new Notification(
                        GetMessage(error));
         }
 

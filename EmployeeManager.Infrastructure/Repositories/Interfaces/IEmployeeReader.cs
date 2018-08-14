@@ -9,6 +9,8 @@ namespace EmployeeManager.Infrastructure.Repositories.Interfaces
     {
         Task<Maybe<Employee>> Read(int employeeId);
 
+        Task<bool> Any(string email);
+
         Task<IReadOnlyCollection<Employee>> Read(int pageIndex, int pageSize);
     }
 }

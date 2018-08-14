@@ -26,5 +26,9 @@ namespace EmployeeManager.Domain.ValueOjects
 
             return match.Success;
         }
+
+        public static bool operator ==(Email email, string emailAddress) => email?.Address == emailAddress;
+
+        public static bool operator !=(Email email, string emailAddress) => (email == emailAddress) == false;
     }
 }
