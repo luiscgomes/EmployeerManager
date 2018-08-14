@@ -79,6 +79,8 @@ namespace EmployeeManager.Api
                 return Log.Logger;
             },
             Lifestyle.Singleton);
+
+            _container.Verify();
         }
     }
 }

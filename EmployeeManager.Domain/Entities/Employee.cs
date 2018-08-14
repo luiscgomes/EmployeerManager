@@ -17,13 +17,18 @@ namespace EmployeeManager.Domain.Entities
 
         public DateTime? DeletedAt { get; private set; }
 
+        private Employee()
+        {
+            CreatedAt = DateTime.UtcNow;
+        }
+
         public Employee(
             int id,
             string name,
             Email email,
-            string department)
+            string department) : this()
         {
-            if (id <= 0)
+            if (id < 0)
                 throw new ArgumentOutOfRangeException(nameof(id), id, "Id must be greater than 0");
 
             if (string.IsNullOrWhiteSpace(name))
@@ -36,7 +41,6 @@ namespace EmployeeManager.Domain.Entities
             Name = name;
             Email = email ?? throw new ArgumentNullException(nameof(email));
             Department = department;
-            CreatedAt = DateTime.UtcNow;
         }
 
         public void SetToDeleted()
