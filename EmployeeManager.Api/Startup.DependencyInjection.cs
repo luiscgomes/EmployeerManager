@@ -1,6 +1,7 @@
 ﻿using EmployeeManager.Commons.Notifications;
 using EmployeeManager.Infrastructure.Data;
 using EmployeeManager.Infrastructure.Repositories;
+using EmployeeManager.Infrastructure.Repositories.EmployeeWriters;
 using EmployeeManager.Infrastructure.Repositories.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -56,7 +57,7 @@ namespace EmployeeManager.Api
             _container.Register<IEmployeeReader, EmployeeReader>();
 
             _container.Register<IEmployeeWriter, EmployeeWriter>();
-            _container.RegisterDecorator<IEmployeeWriter, EmployeeWriterWithEmailValidation>();
+            _container.RegisterDecorator<IEmployeeWriter, EmployeeWriterWithEmailAlreadyExistsValidation>();
 
             _container.Register<INotificationStore, NotificationStore>(Lifestyle.Scoped);
 

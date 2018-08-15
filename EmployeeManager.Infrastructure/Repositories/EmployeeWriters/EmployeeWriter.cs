@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 
-namespace EmployeeManager.Infrastructure.Repositories
+namespace EmployeeManager.Infrastructure.Repositories.EmployeeWriters
 {
     public class EmployeeWriter : IEmployeeWriter
     {

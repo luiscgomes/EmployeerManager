@@ -37,9 +37,9 @@ namespace EmployeeManager.Api.Controllers
 
             if (NotificationStore.HasNotifications())
             {
-                var notfications = new BadRequestModel(NotificationStore.Notifications);
+                var badRequestModel = new BadRequestModel(NotificationStore.Notifications);
 
-                return BadRequest(notfications);
+                return BadRequest(badRequestModel);
             }
 
             var employeeModel = employee.MapTo<EmployeeModel>();

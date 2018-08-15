@@ -4,9 +4,9 @@ using EmployeeManager.Infrastructure.Repositories.Interfaces;
 using System;
 using System.Threading.Tasks;
 
-namespace EmployeeManager.Infrastructure.Repositories
+namespace EmployeeManager.Infrastructure.Repositories.EmployeeWriters
 {
-    public class EmployeeWriterWithEmailValidation : IEmployeeWriter
+    public class EmployeeWriterWithEmailAlreadyExistsValidation : IEmployeeWriter
     {
         public IEmployeeWriter EmployeeWriter { get; }
 
@@ -14,7 +14,7 @@ namespace EmployeeManager.Infrastructure.Repositories
 
         public INotificationStore NotificationStore { get; }
 
-        public EmployeeWriterWithEmailValidation(
+        public EmployeeWriterWithEmailAlreadyExistsValidation(
             IEmployeeWriter employeeWriter,
             IEmployeeReader employeeReader,
             INotificationStore notificationStore)
