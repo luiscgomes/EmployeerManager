@@ -28,16 +28,13 @@ namespace EmployeeManager.Api
             _container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 
             services
-                .AddSingleton<IControllerActivator>(
-                    new SimpleInjectorControllerActivator(_container))
+                .AddSingleton<IControllerActivator>(new SimpleInjectorControllerActivator(_container))
                 .EnableSimpleInjectorCrossWiring(_container);
 
             services
                 .AddDbContext<EmployeeManagerContext>(
-                    options =>
-                        options
-                            .UseSqlServer(
-                                Configuration.GetValue<string>("EmployeeManagerDb"),
+                    options => options
+                        .UseSqlServer(Configuration.GetValue<string>("EmployeeManagerDb"),
                                 dbOptions => dbOptions.EnableRetryOnFailure())
                             .EnableSensitiveDataLogging());
 

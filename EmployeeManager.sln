@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeManager.Infrastruct
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeManager.Domain", "EmployeeManager.Domain\EmployeeManager.Domain.csproj", "{98F1E20E-43A4-4D8C-AAE3-143415AFF809}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManager.Commons", "EmployeeManager.Commons\EmployeeManager.Commons.csproj", "{A0A9B86B-A30F-4592-B394-C1FD9551253A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeManager.Commons", "EmployeeManager.Commons\EmployeeManager.Commons.csproj", "{A0A9B86B-A30F-4592-B394-C1FD9551253A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{766873BA-3ED0-4CB8-9B51-BF20C8EDF03D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManager.UnitTests", "EmployeeManager.UnitTests\EmployeeManager.UnitTests.csproj", "{0CC89DCD-DCE2-4F71-A02C-A7CB37B1914E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +37,16 @@ Global
 		{A0A9B86B-A30F-4592-B394-C1FD9551253A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0A9B86B-A30F-4592-B394-C1FD9551253A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0A9B86B-A30F-4592-B394-C1FD9551253A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CC89DCD-DCE2-4F71-A02C-A7CB37B1914E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CC89DCD-DCE2-4F71-A02C-A7CB37B1914E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CC89DCD-DCE2-4F71-A02C-A7CB37B1914E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CC89DCD-DCE2-4F71-A02C-A7CB37B1914E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0CC89DCD-DCE2-4F71-A02C-A7CB37B1914E} = {766873BA-3ED0-4CB8-9B51-BF20C8EDF03D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F0C2EAEC-88B0-4FA5-B3C9-B3C6FAB33C50}
