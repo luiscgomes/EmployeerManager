@@ -1,6 +1,7 @@
 ﻿using AutoFixture;
 using AutoFixture.AutoNSubstitute;
 using AutoFixture.Xunit2;
+using EmployeeManager.Api.Contracts;
 using System;
 using System.Linq;
 
@@ -30,6 +31,11 @@ namespace EmployeeManager.UnitTests.AutoFixture
 
             fixture.Behaviors.Add(new OmitOnRecursionBehavior(1));
             fixture.RepeatCount = 1;
+
+            fixture.Register(() => new EmployeeCreateModel
+            {
+                Email = "teste@teste.com"
+            });
 
             return fixture;
         }
