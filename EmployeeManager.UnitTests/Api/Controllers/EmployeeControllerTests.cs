@@ -1,6 +1,8 @@
 ﻿using AutoFixture.Idioms;
 using EmployeeManager.Api.Contracts;
 using EmployeeManager.Api.Controllers;
+using EmployeeManager.Domain;
+using EmployeeManager.Domain.Entities;
 using EmployeeManager.UnitTests.AutoFixture;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
@@ -49,6 +51,31 @@ namespace EmployeeManager.UnitTests.Api.Controllers
             var actual = await sut.Create(employeeCreateModel);
 
             actual.Should().BeOfType<BadRequestObjectResult>();
+        }
+
+        [Theory, AutoNSubstituteData]
+        public async Task Remove_When_Employee_Does_Not_Exist_Should_Return_Not_Found(
+            int employeeId,
+            EmployeeController sut)
+        {
+            sut.EmployeeReader.Read(employeeId).Returns(Maybe<Employee>.None);
+
+            var actual = await sut.Remove(employeeId);
+
+            actual.Should().BeOfType<NotFoundResult>();
+        }
+
+        [Theory, AutoNSubstituteData]
+        public async Task Remove_When_Employee_Exists_Should_Remove(
+            Employee employee,
+            EmployeeController sut)
+        {
+            sut.EmployeeReader.Read(employee.Id).Returns(employee);
+
+            var actual = await sut.Remove(employee.Id);
+
+            actual.Should().BeOfType<OkResult>();
+            await sut.EmployeeWriter.Received().Remove(employee);
         }
     }
 }

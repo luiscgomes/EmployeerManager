@@ -2,6 +2,7 @@
 using AutoFixture.AutoNSubstitute;
 using AutoFixture.Xunit2;
 using EmployeeManager.Api.Contracts;
+using EmployeeManager.Domain.ValueOjects;
 using System;
 using System.Linq;
 
@@ -36,6 +37,8 @@ namespace EmployeeManager.UnitTests.AutoFixture
             {
                 Email = "teste@teste.com"
             });
+
+            fixture.Register(() => new Email("teste@teste.com"));
 
             return fixture;
         }
