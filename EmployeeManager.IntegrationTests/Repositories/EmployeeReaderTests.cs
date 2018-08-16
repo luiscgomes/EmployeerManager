@@ -112,7 +112,7 @@ namespace EmployeeManager.IntegrationTests.Repositories
         [Theory, AutoNSubstituteData]
         public async Task Read_Should_Paginated_Employees(List<Employee> employees)
         {
-            const int pageIndex = 2;
+            const int pageIndex = 1;
             const int pageSize = 1;
 
             var options = DbContextOptionsFactory.Create(nameof(Read_Should_Paginated_Employees));
