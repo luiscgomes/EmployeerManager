@@ -115,7 +115,7 @@ namespace EmployeeManager.IntegrationTests.Repositories
             const int pageIndex = 2;
             const int pageSize = 1;
 
-            var options = DbContextOptionsFactory.Create(nameof(Any_When_EmailAddress_Does_Not_Exist_Should_Return_False));
+            var options = DbContextOptionsFactory.Create(nameof(Read_Should_Paginated_Employees));
 
             using (var context = new EmployeeManagerContext(options))
             {
